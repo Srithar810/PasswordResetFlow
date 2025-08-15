@@ -59,11 +59,36 @@ export const loginUser = async (req, res) => {
 //get User
 export const getUser = async (req, res) => {
   try {
-    const user = await User.find();
-    console.log("User Data :" + user);
-    res.status(200).json({ message: "Admin User: ", data: user });
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const userData = {
+      _id: user._id,
+      userName: user.userName,
+      email: user.email,
+      role: user.role,
+      createdAt: user.createdAt,
+    };
+
+    res.status(200).json({
+      success: true,
+      message: "User retrieved successfully",
+      data: userData,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error fetching user:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error while fetching user",
+      error: error.message,
+    });
   }
 };
 
