@@ -110,7 +110,7 @@ export const forgotPassword = async (req, res) => {
       "Reset Password Link",
       `Hi, \n\nYou requested a password reset.
             \nPlease click the link below to reset your password:
-            \n\n http://localhost:5173/resetPassword/${user._id}/${token}
+            \n\n https://passwordresetflow-zu6g.onrender.com/api/auth/reset-password/${id}/${token}
             \n\nIf you didn't request this, you can ignore this email.`
     );
     res.status(200).json({ message: "Email Send Sucessfully...!" });
