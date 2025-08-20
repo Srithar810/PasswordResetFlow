@@ -9,9 +9,13 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin:"https://passwordresetflowreact1.netlify.app",
-    credentials:true,
+  origin: "*"
 }));
+
+// app.use(cors({
+//     origin:"https://passwordresetflowreact1.netlify.app",
+//     credentials:true,
+// }));
 app.use(express.json());
 
 connectDB();
